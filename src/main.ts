@@ -4,7 +4,9 @@ import * as github from '@actions/github';
 async function run() {
   try {
     const issueMessage: string = core.getInput('issue-message');
+    const issueLabels: string = core.getInput('issue-labels');
     const prMessage: string = core.getInput('pr-message');
+    const prLabels: string = core.getInput('pr-labels');
     if (!issueMessage && !prMessage) {
       throw new Error(
         'Action must have at least one of issue-message or pr-message set'
@@ -77,6 +79,10 @@ async function run() {
         issue_number: issue.number,
         body: message
       });
+      if (issueLabels) {
+        console.log(`Adding labels: [${issueLabels}] to first-time issue`);
+        await addLabels(client, issue.number, issueLabels.split(','));
+      }
     } else {
       await client.pulls.createReview({
         owner: issue.owner,
@@ -85,6 +91,10 @@ async function run() {
         body: message,
         event: 'COMMENT'
       });
+      if (prLabels) {
+        console.log(`Adding labels: [${prLabels}] to first-time pull request`);
+        await addLabels(client, issue.number, prLabels.split(','));
+      }
     }
   } catch (error) {
     core.setFailed(error.message);
@@ -165,6 +175,19 @@ async function isFirstPull(
     curPullNumber,
     page + 1
   );
+}
+
+async function addLabels(
+  client: github.GitHub,
+  prNumber: number,
+  labels: string[]
+) {
+  await client.issues.addLabels({
+    owner: github.context.repo.owner,
+    repo: github.context.repo.repo,
+    issue_number: prNumber,
+    labels: labels
+  });
 }
 
 run();

@@ -1,4 +1,4 @@
-name: 'First interaction'
+name: 'First interaction with label support'
 description: 'Greet new contributors when they create their first issue or open their first pull request'
 author: 'GitHub'
 inputs:
@@ -9,6 +9,10 @@ inputs:
     description: 'Comment to post on an individual''s first issue'
   pr-message:
     description: 'Comment to post on an individual''s first pull request'
+  issue-labels:
+    description: 'Comma-separated list of labels to append to the first issue'
+  pr-labels:
+    description: 'Comma-separated list of labels to append to the first pull request'
 runs:
   using: 'docker'
   image: 'Dockerfile'
