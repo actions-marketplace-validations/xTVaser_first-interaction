@@ -3,7 +3,7 @@ import * as github from '@actions/github';
 
 async function run() {
   try {
-    const debugMode: boolean = core.getInput('debug-mode');
+    const debugMode: boolean = core.getInput('debug-mode') == 'true';
     const issueMessage: string = core.getInput('issue-message');
     const issueLabels: string = core.getInput('issue-labels');
     const prMessage: string = core.getInput('pr-message');
