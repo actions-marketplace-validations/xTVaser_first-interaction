@@ -13,6 +13,8 @@ inputs:
     description: 'Comma-separated list of labels to append to the first issue'
   pr-labels:
     description: 'Comma-separated list of labels to append to the first pull request'
+  debug-mode:
+    description: 'Allows for testing the action even if its not your first contribution'
 runs:
   using: 'docker'
   image: 'docker://xtvaser/action-first-interaction:v1.2.0'
