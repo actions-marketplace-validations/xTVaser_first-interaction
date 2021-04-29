@@ -15,4 +15,4 @@ inputs:
     description: 'Comma-separated list of labels to append to the first pull request'
 runs:
   using: 'docker'
-  image: 'Dockerfile'
+  image: 'docker://xtvaser/action-first-interaction:v1.2.0'

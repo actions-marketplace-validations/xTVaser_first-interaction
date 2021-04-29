@@ -8,7 +8,7 @@ See [action.yml](action.yml)
 
 ```yaml
 steps:
-- uses: actions/first-interaction@v1
+- uses: xTVaser/first-interaction@v1.2.0
   with:
     repo-token: ${{ secrets.GITHUB_TOKEN }}
     issue-message: '# Message with markdown.\nThis is the message that will be displayed on users' first issue.'

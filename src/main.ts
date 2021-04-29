@@ -3,6 +3,7 @@ import * as github from '@actions/github';
 
 async function run() {
   try {
+    const debugMode: boolean = core.getInput('debugMode');
     const issueMessage: string = core.getInput('issue-message');
     const issueLabels: string = core.getInput('issue-labels');
     const prMessage: string = core.getInput('pr-message');
@@ -18,7 +19,7 @@ async function run() {
     );
     const context = github.context;
 
-    if (context.payload.action !== 'opened') {
+    if (context.payload.action !== 'opened' && !debugMode) {
       console.log('No issue or PR was opened, skipping');
       return;
     }
@@ -57,7 +58,7 @@ async function run() {
         issue.number
       );
     }
-    if (!firstContribution) {
+    if (!firstContribution && !debugMode) {
       console.log('Not the users first contribution');
       return;
     }
